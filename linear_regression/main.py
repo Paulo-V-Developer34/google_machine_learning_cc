@@ -1,4 +1,5 @@
 from lib.build_model import run_experiment
+from lib.make_predictions import show_predictions, predict_fare
 from src.dataAnalysis import ReadDataset
 
 #@title Code - Load dependencies
@@ -41,7 +42,7 @@ def main():
 
         #@title treino
         #treinar o modelo com os dados do taxi
-        input("\nVamos treinar o modelo, digite qualquer coisa para continuar")
+        input("\nVamos treinar o modelo, digite qualquer coisa para continuar ")
         hyperparameter = float(input("\nDigite o hyperparametro (recomenda-se utilizar 0.001): "))
         batch = int(input("\nDigite o batch (recomenda-se utilizar 50): "))
         epoch = int(input("\nDigite a época (recomenda-se utilizar 20): "))
@@ -49,8 +50,9 @@ def main():
         label = 'FARE'
 
         howMuchFeatures = 0
+        modifiedData_df = 0
         while howMuchFeatures <= 0 or howMuchFeatures > 2:
-            howMuchFeatures = int(input("\nVocê quer executar o modelo passando 1 ou 2 parâmetros como \"features\" para ele? digite a quantidade"))
+            howMuchFeatures = int(input("\nVocê quer executar o modelo passando 1 ou 2 parâmetros como \"features\" para ele? digite a quantidade: "))
             if howMuchFeatures <= 0 or howMuchFeatures > 2:
                 print("\nDigite um número válido")
 
@@ -67,14 +69,24 @@ def main():
             features = ['TRIP_MILES','TRIP_MINUTES']
 
             print("\nTreinando o modelo com 2 parâmetros")
-            model_2 = run_experiment(training_df, features, label, hyperparameter, epoch, batch)
+            model_2 = run_experiment(modifiedData_df, features, label, hyperparameter, epoch, batch)
 
 
         
 
         #@title análise modelo
         #análise do desempenho das predições do modelo
-        print("\nVamos verificar o desempenho do modelo: ")
+        print("\nVamos verificar o desempenho do modelo, para isso faremos predições com ele")
+        input("\nDigite qualquer coisa para continuar ")
+
+        #@title Code - Make predictions
+
+        if(howMuchFeatures == 1):
+            output = predict_fare(model_1, training_df, features, label)
+        else:
+            output = predict_fare(model_2, modifiedData_df, features, label)
+
+        show_predictions(output)
 
         #reiniciar programa
         restart = str(input("\nQuer recomeçar o programa? digite \"n\" se não ou qualquer character caso queira continuar"))
