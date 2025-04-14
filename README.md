@@ -16,6 +16,6 @@ UV python é uma ferramenta que faz muito além de apenas gerenciar dependência
 
 1. Caso os modulos python não sejam reconhecidos verifique o interpretador python
 2. Caso o passo anterior não funcione execute ```uv tree``` para ver as dependências, caso as dependências necessárias não apareçam execute ```uv install```
-3. Caso o erro ```ImportError: DLL load failed while importing _ml_dtypes_ext: O nome do arquivo ou a extensão é muito grande.``` apareça você deve mudar o projeto para um caminho mais curto para seu Sistema Operacional
+3. Caso o erro ```ImportError: DLL load failed while importing <nome_do_arquivo>: O nome do arquivo ou a extensão é muito grande.``` apareça você deve mudar o projeto para um caminho mais curto para seu Sistema Operacional
 4. Caso o projeto não reconheça módulos criados por você verifique a pasta "__pycache__" gerada, caso o seu arquivo não apareça lá verifique a importação feita a ela
 5. Caso a importação de outro arquivo python (módulo) falhe lembre-se de sempre usar a pasta do projeto como o root dos caminhos dos seus arquivos.
