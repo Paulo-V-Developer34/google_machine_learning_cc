@@ -5,7 +5,7 @@ import plotly.express as px
 pd.options.display.max_rows = 10
 pd.options.display.float_format = "{:.1f}".format
 
-def ReadDataset(df):
+def ReadDataset(df: pd.DataFrame, normalized_df: pd.DataFrame, test_df: pd.DataFrame):
     #analizando o dataset
     print(
         f'The shortest grain is {df.Major_Axis_Length.min():.1f}px long,'
@@ -49,6 +49,12 @@ def ReadDataset(df):
             z='Major_Axis_Length',
             color='Class'
         ).show()
+
+    print("\nDevemos normalizar os dados para ajudar o modelo a treinar e a fazer melhores previsões, vamos analisar os dados normalizados com o *z-score*")
+    print("\n" + normalized_df.head())
+
+    print("\nDevemos separar alguns dados aleatórios para treinar e testar o modelo, observe alguns dados para o teste: \n")
+    print(test_df.head())
 
     #Finalizado!
     print("Análise finalizada!")

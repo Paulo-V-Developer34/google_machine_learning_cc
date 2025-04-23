@@ -19,4 +19,5 @@ dependencies = [
 members = [
     "linear_regression",
     "logistic_regression",
+    "tests",
 ]
