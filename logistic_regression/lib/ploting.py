@@ -1,6 +1,7 @@
 import keras
 import ml_edu.experiment
 import ml_edu.results
+import matplotlib.pyplot as plt
 from lib.build_model import create_model, train_model
 
 def plot_train(input_features, train_features, train_labels, hyperparameter, epochs, batch, threshold):
@@ -39,5 +40,7 @@ def plot_train(input_features, train_features, train_labels, hyperparameter, epo
     #mostrar o progresso do modelo para o usuário
     ml_edu.results.plot_experiment_metrics(experiment, ['accuracy','precision','recall'])
     ml_edu.results.plot_experiment_metrics(experiment, ['auc'])
+
+    plt.show()
 
     return experiment

@@ -11,9 +11,11 @@ from lib.evaluate_model import compare_train_test
 # # data
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # # machine learning
 import keras
+import ml_edu.results
 
 # o seguinte código faz 2 coisas
 # 1 - aleatorializa o embaralhamento dos dados para o modelo treinar entre outras coisas
@@ -92,6 +94,8 @@ def main():
     # ]
     
     restart = "s"
+    model_1_finish = False
+    model_2_finish = False
     while restart.lower() != 'n':
         print("\nBem vindo à atividade de modelo de regressão linear")
         
@@ -134,6 +138,7 @@ def main():
                 threshold=threshold,
                 hyperparameter=hyperparameter
             )
+            model_1_finish = True
         else:
             input_features = [
                 'Eccentricity',
@@ -155,6 +160,7 @@ def main():
                 threshold=threshold,
                 hyperparameter=hyperparameter
             )
+            model_2_finish = True
 
         #@title análise modelo
         #análise do desempenho das predições do modelo
@@ -170,7 +176,19 @@ def main():
             test_metrics = model_2.evaluate(test_features, test_labels)
             compare_train_test(model_2, test_metrics)
 
-        # show_predictions(output)
+        #comparando os modelos
+        if model_1_finish:
+            if model_2_finish:
+                compare_response = str(input("\nVocê treinou os dois modelos! quer compará-los? digite \"s\" para comparar ou qualquer coisa para proseguir: "))
+                if compare_response.lower() == 's':
+                    #fazendo a comparação
+                    ml_edu.results.compare_experiment([model_1,model_2],['accuracy','auc'],test_features,test_labels)
+                    plt.show()
+            else:
+                print("\nInfelizmente não é possível comparar os dois modelos, pois você treinou apenas o modelo 1, treine o outro para permitir a comparação!")
+        else:
+            if model_2_finish:
+                print("\nInfelizmente não é possível comparar os dois modelos, pois você treinou apenas o modelo 2, treine o outro para permitir a comparação!")
 
         #reiniciar programa
         restart = str(input("\nQuer recomeçar o programa? digite \"n\" se não ou qualquer character caso queira continuar"))

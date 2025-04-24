@@ -24,7 +24,7 @@ def create_model( #usando type hint
     )(concatenated_inputs)
 
     #criando o modelo
-    model = keras.Model(input=model_inputs, output=model_output)
+    model = keras.Model(inputs=model_inputs, outputs=model_output) #esse é um dos motivos pela qual eu não gosto do python, eu havia escrito "output" ao invés de "outputs" e ele não disse nada
 
     #configurando o modelo
     model.compile(
@@ -47,7 +47,7 @@ def train_model(
 ) -> ml_edu.experiment.Experiment:
 
     features = {
-        feature_name: np.ndarray(dataset[feature_name])
+        feature_name: np.array(dataset[feature_name])
         for feature_name in settings.input_features
     }
 
